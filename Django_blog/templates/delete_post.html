@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Delete Post Post
+{% endblock title %}
+
+{% block content %}
+    <div class="container ">
+        <div class="jumbotron " >
+            {% if user.is_authenticated %}
+                <h1 class="display-4 text-danger">Delete Post </h1>
+                <hr class="my-4">
+                <h1 class="display-6 text-center">Title: {{ post.title }}</h1>
+                <hr class="my-4">
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <button class="btn btn-danger">Delete Post</button>
+                </form>
+            {% else %}
+                <h1 class="display-1 text-danger">Hellow DIck</h1>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock content %}

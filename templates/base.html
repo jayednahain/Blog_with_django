@@ -1,0 +1,119 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+		<title>
+			{% block title %}
+
+			{% endblock title %}
+		</title>
+
+
+
+    </script>
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <div class="container-fluid">
+				<a class="navbar-brand"  href="{% url 'home_link' %}">Social Blog</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        {% if category_menu %}
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  {% for item in category_menu %}
+                                    <li><a class="dropdown-item" href="{% url 'category_view_link' item %}">{{ item }}</a></li>
+                                  {% endfor %}
+                              </ul>
+                            </li>
+                        {% else %}
+
+                            <li class="nav-item">
+								  <a class="nav-link active" aria-current="page"  href="{% url 'category_view_list_link' %}">Category Listt</a>
+                            </li>
+
+                        {% endif %}
+						   {% if user.is_authenticated %}
+							  <li class="nav-item">
+								  <a class="nav-link active" aria-current="page"  href="{% url 'crate_post_link' %}">Create Post</a>
+							  </li>
+							  <li class="nav-item">
+								  <a class="nav-link active" aria-current="page"  href="{% url 'logout' %}">Sign out</a>
+							  </li>
+							  <li class="nav-item">
+								  <a class="nav-link active" aria-current="page" href="{% url 'crate_category_link' %}">Create Category</a>
+							  </li>
+                               <li class="nav-item">
+								  <a class="nav-link active" aria-current="page" href="$">Current user : {{ user.username }}</a>
+							  </li>
+                               <li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{% url 'edit_profile_link' %}">Edit Profile</a>
+							  </li>
+
+
+                               <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Advance Function
+                                  </a>
+                                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <li><a class="dropdown-item" href="{% url 'analysis_link' %}">Analyse Text</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'cards_view' %}">Post Cards View</a></li>
+                                  </ul>
+                               </li>
+
+						  {% else %}
+							  <li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{% url 'Registretion_link' %}">Sine up</a>
+							  </li>
+							  <li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{% url 'login' %}">Sign In</a>
+							  </li>
+
+
+
+
+						  {% endif %}
+						<li class="nav-item">
+						  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+						</li>
+				  </ul>
+
+				</div>
+			</div>
+		</nav>
+
+
+  </head>
+  <body>
+
+
+	<br>
+	  <div class="container">
+		  {% block content %}
+
+		  {% endblock content %}
+	  </div>
+
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

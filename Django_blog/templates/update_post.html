@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Update Post
+{% endblock title %}
+
+{% block content %}
+    <div class="container ">
+        <div class="jumbotron " >
+        {% if post.author.id == user.id %}
+            {% if user.is_authenticated %}
+                <h1 class="display-4">Update Post</h1>
+                <hr class="my-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {{ form.media }}
+                        <hr class="my-4">
+                        <button class="btn btn-dark">Update Post</button>
+                    </form>
+            {% else %}
+                <h1 class="display-4">No away  /</h1>
+
+            {% endif %}
+        {% endif %}
+
+
+
+        </div>
+    </div>
+
+{% endblock content %}

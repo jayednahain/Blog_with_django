@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ post.title_page }}
+{% endblock title %}
+
+{% block content %}
+
+
+
+
+
+
+    <div class="jumbotron">
+        <div class="col-sm-10 mx-auto">
+            <h1 class="display-4">{{ post.title }}</h1>
+            {% if post.headr_images %}
+                <img src="{{ post.headr_images.url }}" width="250" height="300">
+            {% endif %}
+
+            <hr class="my-2">
+
+            <p class="card-text"><small class="text-muted"> {{ post.post_date }}  likes : {{ total_likes }} </small></p>
+            <hr class="my-2">
+            <form action="{% url 'like_post' post.pk %}", method="POST" >
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        {% if post.author.id == user.id %}
+                            <a class="btn btn-outline-primary btn-sm" href="{% url 'update_post_view_link' post.pk %}">Edit Post</a>
+                            <a type="button" class="btn btn-danger btn-sm" href="{% url 'delete_post_link' post.pk %}">Delete</a>
+
+                        {% endif %}
+
+                        {% if liked %}
+                            <button class="btn btn-primary btn-sm" type="submit", name="post_id", value="{{ post.id }}">Unlike</button>
+                        {% else %}
+                            <button class="btn btn-primary btn-sm" type="submit", name="post_id", value="{{ post.id }}">like</button>
+                        {% endif %}
+
+
+                    {% else %}
+                        <p class="card-text"><small class="text-muted">you must login for like ! <a href="{% url 'login' %}">Login</a></small></p>
+
+                    {% endif %}
+                </form>
+            <p class="lead">Post by: {{ post.author.username }}</p>
+            <p class="lead">{{ post.body | safe }}</p>
+            <hr class="my-4">
+            <p>post author id: {{ post.author.id }}</p>
+            <p>current user id: {{ user.id }}</p>
+
+
+
+
+
+            <hr class="my-4">
+
+
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-2">
+                {% if post.author.profile.profile_image.url %}
+                    <img class="rounded-3" src="{{ post.author.profile.profile_image.url }}" width="150" height="150">
+                {% else %}
+                    <img class="rounded-3" src="{% static 'Django_blog/Images/defult_profile_picture.jpg' %}" width="150" height="150">
+                {% endif %}
+
+            </div>
+            <div class="col-md-10">
+              <div class="card-body">
+                <h5 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h5>
+
+                  <hr class="my-2">
+
+                  {% if post.author.profile.website_link %}
+                       <a href="{{ post.author.profile.website_link }}"><img src='{% static 'Django_blog/Images/soical_icons/github.png' %}' width="20" height="20"></a>
+                  {% endif %}
+
+                  {% if post.author.profile.instagram_link %}
+                      <a href="{{ post.author.profile.instagram_link }}"><img src='{% static 'Django_blog/Images/soical_icons/instagram.png' %}' width="20" height="20"></a>
+                  {% endif %}
+
+                  {% if post.author.profile.linkedin_link %}
+                      <a href="{{ post.author.profile.linkedin_link }}"><img src='{% static 'Django_blog/Images/soical_icons/linkedin.png' %}' width="20" height="20"></a>
+                  {% endif %}
+
+                  {% if post.author.profile.twitter_link %}
+                      <a href="{{ post.author.profile.twitter_link }}"><img src='{% static 'Django_blog/Images/soical_icons/twitter.png' %}' width="20" height="20"></a>
+                  {% endif %}
+
+                  {% if post.author.profile.pinterest_link %}
+                      <a href="{{ post.author.profile.pinterest_link }}"><img src='{% static 'Django_blog/Images/soical_icons/pinterest-logo.png' %}' width="20" height="20"></a>
+                  {% endif %}
+
+
+                  <p class="card-text">{{ post.author.profile.bio}}</p>
+                <p class="card-text"><small class="text-muted"></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    <br><br>
+
+
+
+
+
+
+{% endblock content %}

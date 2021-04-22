@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Post
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+
+
+    <div class="container ">
+        <div class="jumbotron " >
+            {% if user.is_authenticated %}
+                <h1 class="display-4">Create A post form here</h1>
+                <hr class="my-4">
+                <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {{ form.media }}
+
+                    <hr class="my-4">
+                    <button class="btn btn-dark">Click for Post</button>
+                </form>
+
+                <script>
+                    var name = "{{ user.id }}"
+                    document.getElementById("author_filed").value=name;
+                </script>
+
+            {% else %}
+                <h1 class="display-2 ">No away</h1>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock content %}

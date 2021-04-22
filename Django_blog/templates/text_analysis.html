@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="jumbotron">
+              <h1 class="display-4">Submit your text here</h1>
+                <form method="POST" action="{% url 'analysis_link' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sumitted_text"></textarea>
+                    </div>
+                    <br>
+                    <input type="submit"  value="Submit" class="btn btn-primary ">
+                    <a href="{% url 'analysis_link' %}" type="button" class="btn btn-danger" > Reset</a>
+                </form>
+            </div>
+            <br>
+          <hr class="my-4">
+    </div>
+    <form>
+
+    </form>
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">Sentences</h1>
+        <div class="col-sm-8 mx-auto">
+                <ul class="list-group">
+
+
+                        <form  class="form-control" action="{% url 'analysis_link' %}" method="POST" name="formdata">
+                            {% csrf_token %}
+                            {% for sentence in sentences %}
+                            <<input multiple class="form-control" type="text" value="{{ sentence }}">
+                            {% endfor %}
+                        </form>
+
+
+                </ul>
+        </div>
+    </div>
+
+
+
+    <h1>Sad Sentence</h1>
+    {% for sentence in sad_sentence %}
+        {{ sentence }}<br>
+    {% endfor %}
+    <br>
+    <h2>Happy Snetence</h2>
+    {% for sentence in happy_sentence %}
+        {{ sentence }}<br>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+{% endblock content %}

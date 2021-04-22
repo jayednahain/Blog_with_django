@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+    <ul>
+    {% for item in category_post_list %}
+        <li><a class="dropdown-item" href="{% url 'category_view_link' item %}">{{ item }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock content %}
